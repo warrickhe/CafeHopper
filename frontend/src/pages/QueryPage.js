@@ -126,9 +126,6 @@ export default function QueryPage() {
   return (
     <>
       <Header />
-      <Link to="/ResultsPage">
-        <button>Search</button>
-      </Link>
       <div className="query-page-container">
         <form onSubmit={handleSubmit}>
           <div className="location">
@@ -230,7 +227,9 @@ export default function QueryPage() {
               <option value="4">$$$$</option>
             </select>
           </div>
+          <Link to="/Results">
           <button type="submit">Submit</button>
+          </Link>
         </form>
       </div>
     </>
