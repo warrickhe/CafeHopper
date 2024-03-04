@@ -97,7 +97,7 @@ def getCafes():
     data = request.get_json()
     print(data,file=sys.stderr)
     print("________________",file=sys.stderr)
-    cafes = []
+    cafes = [data]
     num_cafes = int(data['num_cafes'])
     address = data['address']
     time_per_cafe = int(data['time_per_cafe'])

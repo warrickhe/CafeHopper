@@ -119,8 +119,7 @@ export default function QueryPage() {
           // Request was successful, handle the response
           console.log(xhr.responseText);
           navigate('/Results', {
-            state: xhr.responseText
-          });
+            state: xhr.responseText});
         } else {
           // Handle errors
           console.error('Error:', xhr.status);

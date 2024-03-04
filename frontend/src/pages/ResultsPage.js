@@ -53,9 +53,14 @@ const dummyData = [
 const ResultsPage = () => {
   const [selectedNames, setSelectedNames] = useState([]);
   const { state } = useLocation();
-  const data = state;
+  const obj = JSON.parse(state);
+  console.log(typeof state);
+  const input = obj[0];
+  const data = obj.slice(1);
   console.log("here is our data!");
   console.log(data);
+  console.log("here is our input");
+  console.log(input);
   const handleCheckboxChange = (name) => {
     if (selectedNames.includes(name)) {
       setSelectedNames(selectedNames.filter(item => item !== name));
