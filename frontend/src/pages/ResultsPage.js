@@ -90,8 +90,11 @@ const ResultsPage = () => {
             <label>{item.name}</label>
           </div>
         ))}
-        <button type="submit">Submit</button>
+        <button type="submit">Regenerate</button>
       </form>
+      <Link to="/Landing">
+          <button>Restart</button>
+        </Link>
     </div>
   );
 };
