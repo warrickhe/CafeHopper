@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Map from './Map'; // Import the Map component
 
@@ -52,7 +52,10 @@ const dummyData = [
 
 const ResultsPage = () => {
   const [selectedNames, setSelectedNames] = useState([]);
-  
+  const { state } = useLocation();
+  const data = state;
+  console.log("here is our data!");
+  console.log(data);
   const handleCheckboxChange = (name) => {
     if (selectedNames.includes(name)) {
       setSelectedNames(selectedNames.filter(item => item !== name));

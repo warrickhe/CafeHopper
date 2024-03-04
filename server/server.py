@@ -36,7 +36,8 @@ def m_to_mi(distance):
 
 def check_criteria(criteria, business):
     metConditions = True
-    metConditions &= business['review_count']>=int(criteria['min_review_count'])
+    if 'min_review_count' in criteria and criteria['min_review_count'] is not None:
+        metConditions &= business['review_count']>=int(criteria['min_review_count'])
     if 'min_rating' in criteria and criteria['min_rating'] is not None:
         metConditions &= float(business['rating'])>=float(criteria['min_rating'])
     if 'price' in business:
