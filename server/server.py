@@ -37,7 +37,6 @@ def check_criteria(criteria, business):
     metConditions &= business['review_count']>=criteria['min_review_count']
     metConditions &= float(business['rating'])>=criteria['min_rating']
     if 'price' in business:
-        metConditions &= len(business['price'])>=criteria['min_price']
         metConditions &= len(business['price'])<=criteria['max_price']
     else:
         business['price'] = 'unknown'
