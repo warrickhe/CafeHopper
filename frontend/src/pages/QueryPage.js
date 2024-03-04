@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datetime/css/react-datetime.css';
@@ -19,6 +19,8 @@ export default function QueryPage() {
   const [minReview, setMinReview] = useState(null);
   const [minRating, setMinRating] = useState(null);
   const [maxPrice, setMaxPrice] = useState('');
+
+  const navigate = useNavigate();
 
   function handleLocationChange(e) {
     setLocation(e.target.value);
@@ -80,14 +82,14 @@ export default function QueryPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log('Location: ', location);
-    // console.log('Start Date: ', formatDateTime(startDate));
-    // console.log('Time per cafe: ', timePerCafe);
-    // console.log('# of Cafes to Visit: ', numCafes);
-    // console.log('Max travel distance between cafes: ', maxDistance);
-    // console.log('Wheelchair Accessible?: ', isWheelchairAccessible);
-    // console.log('Min Review: ', minReview);
-    // console.log('Min Rating: ', minRating);
+    console.log('Location: ', location);
+    console.log('Start Date: ', formatDateTime(startDate));
+    console.log('Time per cafe: ', timePerCafe);
+    console.log('# of Cafes to Visit: ', numCafes);
+    console.log('Max travel distance between cafes: ', maxDistance);
+    console.log('Wheelchair Accessible?: ', isWheelchairAccessible);
+    console.log('Min Review: ', minReview);
+    console.log('Min Rating: ', minRating);
 
     let inputData = {
       address: location,
@@ -102,8 +104,35 @@ export default function QueryPage() {
         max_price: maxPrice,
       },
     };
-
     console.log(JSON.stringify(inputData));
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:7272/getcafes');
+    // Set request headers if needed
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    // Set up a callback function to handle the response
+    xhr.onload = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        // Request completed
+        if (xhr.status === 200) {
+          // Request was successful, handle the response
+          console.log(xhr.responseText);
+        } else {
+          // Handle errors
+          console.error('Error:', xhr.status);
+        }
+      }
+    };
+
+    // Set up error handling
+    xhr.onerror = function () {
+      console.error('Request failed');
+    };
+    var requestBody = JSON.stringify(inputData);
+    console.log(requestBody);
+    xhr.send(requestBody);
+    navigate('/Results');
   }
 
   //   {
@@ -225,9 +254,7 @@ export default function QueryPage() {
               <option value="4">$$$$</option>
             </select>
           </div>
-          <Link to="/Results">
-            <button type="submit">Submit</button>
-          </Link>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </>

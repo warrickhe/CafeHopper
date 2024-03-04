@@ -5,7 +5,9 @@ import time
 from datetime import datetime
 from flask import Flask, request, jsonify
 from api_key import api_key
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app)
 
 
 """
@@ -34,10 +36,11 @@ def m_to_mi(distance):
 
 def check_criteria(criteria, business):
     metConditions = True
-    metConditions &= business['review_count']>=criteria['min_review_count']
-    metConditions &= float(business['rating'])>=criteria['min_rating']
+    metConditions &= business['review_count']>=int(criteria['min_review_count'])
+    metConditions &= float(business['rating'])>=float(criteria['min_rating'])
     if 'price' in business:
-        metConditions &= len(business['price'])<=criteria['max_price']
+        if 'max_price' in criteria:
+            metConditions &= len(business['price'])<=int(criteria['max_price'])
     else:
         business['price'] = 'unknown'
     return metConditions
@@ -53,7 +56,7 @@ def search(address, data, seen_phones, cur_time):
         #setup params
         params = {
             'location': address,
-            'radius': round(mi_to_m(data['max_distance'])),
+            'radius': round(mi_to_m(float(data['max_distance']))),
             'term': 'cafe',
             'sort_by': 'distance',
             'limit': 20,
@@ -83,26 +86,28 @@ def search(address, data, seen_phones, cur_time):
                     'phone': phone,
                     'distance': "{:.2f}".format(m_to_mi(business['distance'])),
                     'categories': business['categories'],
-                    'start_time': datetime.fromtimestamp(cur_time).strftime('%m-%d-%Y %H:%M')
+                    'start_time': datetime.fromtimestamp(cur_time).strftime('%m/%d/%Y %H:%M')
                 }
 
-@app.route('/getcafes', methods=['GET'])
+@app.route('/getcafes', methods=['GET','POST'])
 def getCafes():
     print("request received",file=sys.stderr)
     data = request.get_json()
+    print(data,file=sys.stderr)
+    print("________________",file=sys.stderr)
     cafes = []
-    num_cafes = data['num_cafes']
+    num_cafes = int(data['num_cafes'])
     address = data['address']
-    time_per_cafe = data['time_per_cafe']
+    time_per_cafe = int(data['time_per_cafe'])
     seen_phones = set()
-    print(datetime.strptime(data['start_time'], '%m-%d-%Y %H:%M'), file=sys.stderr)
+    print(datetime.strptime(data['start_time'], '%m/%d/%Y %H:%M'), file=sys.stderr)
     print(getTZOffset(), file=sys.stderr)
-    cur_time = int(time.mktime(datetime.strptime(data['start_time'], '%m-%d-%Y %H:%M').timetuple()))
+    cur_time = int(time.mktime(datetime.strptime(data['start_time'], '%m/%d/%Y %H:%M').timetuple()))
     for _ in range(num_cafes):
         print("searching",file=sys.stderr)
         cafe = search(address, data, seen_phones, cur_time)
         if cafe is None:
-            return jsonify(cafes)
+            return jsonify(cafes)   
         print('cafe found', file=sys.stderr)
         print(cafe, file=sys.stderr)
         print(cur_time, file=sys.stderr)
