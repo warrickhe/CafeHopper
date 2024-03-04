@@ -155,109 +155,170 @@ export default function QueryPage() {
   return (
     <>
       <Header />
-      <div className="query-page-container">
-        <form onSubmit={handleSubmit}>
-          <div className="location">
-            <label htmlFor="location">Location:</label>
-            <input
-              type="text"
-              id="location"
-              value={location}
-              placeholder="Where you do want to explore?"
-              autoComplete="off"
-              onChange={handleLocationChange}
-              onKeyDown={preventEnter}
+      <div className="query-container">
+        <div className="query--left"></div>
+        <div className="query--right">
+          <h1>Tell Us What You Are Looking For</h1>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="46"
+            height="46"
+            viewBox="0 0 46 46"
+            fill="none"
+          >
+            <path
+              d="M43.1248 22.9999C43.1248 11.8852 34.1145 2.87491 22.9998 2.87491C11.885 2.87491 2.87476 11.8852 2.87476 22.9999C2.87476 26.6431 3.84283 30.0602 5.53577 33.008C4.66471 35.2854 3.84207 37.9311 3.30195 40.575C3.04436 41.8359 4.15538 42.9028 5.40767 42.6063C7.94014 42.0065 10.5109 41.1752 12.769 40.334C15.7667 42.1073 19.2645 43.1249 22.9998 43.1249C34.1145 43.1249 43.1248 34.1147 43.1248 22.9999Z"
+              fill="#F6E797"
             />
-          </div>
-          <div className="date-time">
-            <label htmlFor="start-time">Start Date:</label>
-            <DatePicker
-              selected={startDate}
-              id="start-time"
-              onChange={handleStartDateChange}
-              dateFormat="MM-dd-yyyy h:mm aa"
-              placeholderText="Select Start time"
-              showTimeInput
-              timeInputLabel="Time:"
-              timeFormat="HH:mm"
-              timeIntervals={30}
-              isClearable
+            <path
+              d="M15.3334 28.7499C18.6875 33.861 27.3125 33.861 30.6667 28.7499"
+              stroke="black"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
-            <br />
-          </div>
-          <div className="time-per-cafe">
-            <label htmlFor="time-per-cafe">Time spent at each cafe (min)</label>
-            <input
-              type="number"
-              id="time-per-cafe"
-              value={timePerCafe}
-              onChange={handleTimePerCafe}
-              step="1"
-              onKeyDown={preventEnter}
+            <path
+              d="M16.2914 16.2916V18.2083"
+              stroke="black"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
-          </div>
-          <div className="num-cafes">
-            <label htmlFor="num-cafes"># of Cafes to Go</label>
-            <input
-              type="number"
-              id="num-cafes"
-              value={numCafes}
-              onChange={handleNumCafes}
-              step="1"
-              onKeyDown={preventEnter}
+            <path
+              d="M29.7081 16.2916V18.2083"
+              stroke="black"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
-          </div>
-          <div className="max-distance">
-            <label htmlFor="max-distance">Max travel distance between cafes</label>
-            <input
-              type="number"
-              id="max-distance"
-              value={maxDistance}
-              onChange={handleMaxDistance}
-              step="1"
-              onKeyDown={preventEnter}
+            <path
+              d="M43.1248 22.9999C43.1248 11.8852 34.1145 2.87491 22.9998 2.87491C11.885 2.87491 2.87476 11.8852 2.87476 22.9999C2.87476 26.6431 3.84283 30.0602 5.53577 33.008C4.66471 35.2854 3.84207 37.9311 3.30195 40.575C3.04436 41.8359 4.15538 42.9028 5.40767 42.6063C7.94014 42.0065 10.5109 41.1752 12.769 40.334C15.7667 42.1073 19.2645 43.1249 22.9998 43.1249C34.1145 43.1249 43.1248 34.1147 43.1248 22.9999Z"
+              stroke="black"
+              stroke-width="3"
+              stroke-linejoin="round"
             />
-          </div>
-          <div className="attributes">
-            <label htmlFor="wheelchair-accessible">Wheelchair Accessible?</label>
-            <input
-              type="checkbox"
-              id="wheelchair-accessible"
-              checked={isWheelchairAccessible}
-              onChange={handleWheelchairChange}
-            />
-            <br />
-            <label htmlFor="min-reviews">Minimum Reviews</label>
-            <input
-              type="number"
-              id="min-reviews"
-              value={minReview}
-              onChange={handleReviewChange}
-              step="1"
-              onKeyDown={preventEnter}
-            />
-            <br />
-            <label htmlFor="min-rating">Minimum Rating</label>
-            <select value={minRating} onChange={handleRatingChange}>
-              <option value="">Select star rating</option>
-              <option value="1">1 star</option>
-              <option value="2">2 star</option>
-              <option value="3">3 star</option>
-              <option value="4">4 star</option>
-              <option value="5">5 star</option>
-            </select>
-            <br />
-            <label htmlFor="max-price">Max Price</label>
-            <select value={maxPrice} onChange={handlePriceChange}>
-              <option value="">Select max price</option>
-              <option value="1">$</option>
-              <option value="2">$$</option>
-              <option value="3">$$$</option>
-              <option value="4">$$$$</option>
-            </select>
-          </div>
-          <button type="submit">Submit</button>
-        </form>
+          </svg>
+          <form onSubmit={handleSubmit}>
+            <div className="row1">
+              <div className="location">
+                <label htmlFor="location">Area to Explore</label>
+                <br />
+                <input
+                  type="text"
+                  id="location"
+                  value={location}
+                  placeholder="Where you do want to explore?"
+                  autoComplete="off"
+                  onChange={handleLocationChange}
+                  onKeyDown={preventEnter}
+                />
+              </div>
+              <div className="date-time">
+                <label htmlFor="start-time">Starting Time</label>
+                <br />
+                <DatePicker
+                  selected={startDate}
+                  id="start-time"
+                  onChange={handleStartDateChange}
+                  dateFormat="MM-dd-yyyy h:mm aa"
+                  placeholderText="When do you plan to start?"
+                  showTimeInput
+                  timeInputLabel="Time:"
+                  timeFormat="HH:mm"
+                  timeIntervals={30}
+                  isClearable
+                />
+              </div>
+            </div>
+            <div className="row2">
+              <div className="num-cafes">
+                <label htmlFor="num-cafes">Number of Cafes to Visit</label>
+                <input
+                  type="number"
+                  id="num-cafes"
+                  value={numCafes}
+                  onChange={handleNumCafes}
+                  step="1"
+                  onKeyDown={preventEnter}
+                />
+              </div>
+              <div className="time-per-cafe">
+                <label htmlFor="time-per-cafe">Time at each cafe (min)</label>
+                <input
+                  type="number"
+                  id="time-per-cafe"
+                  value={timePerCafe}
+                  onChange={handleTimePerCafe}
+                  step="1"
+                  onKeyDown={preventEnter}
+                />
+              </div>
+              <div className="max-distance">
+                <label htmlFor="max-distance">Max travel distance between cafes</label>
+                <input
+                  type="number"
+                  id="max-distance"
+                  value={maxDistance}
+                  onChange={handleMaxDistance}
+                  step="1"
+                  onKeyDown={preventEnter}
+                />
+              </div>
+            </div>
+            <hr />
+            <h2>OPTIONAL</h2>
+            <div className="row3">
+              <div className="wheelchair-accessible">
+                <label htmlFor="wheelchair-accessible">Wheelchair Accessible?</label>
+                <br />
+                <input
+                  type="checkbox"
+                  id="wheelchair-accessible"
+                  checked={isWheelchairAccessible}
+                  onChange={handleWheelchairChange}
+                />
+              </div>
+              <div className="min-review-count">
+                <label htmlFor="min-reviews">Minimum Review Count</label>
+                <br />
+                <input
+                  type="number"
+                  id="min-reviews"
+                  value={minReview}
+                  onChange={handleReviewChange}
+                  step="1"
+                  onKeyDown={preventEnter}
+                />
+              </div>
+              <div className="min-rating">
+                <label htmlFor="min-rating">Minimum Rating</label>
+                <br />
+                <select value={minRating} onChange={handleRatingChange}>
+                  <option value="">Select star rating</option>
+                  <option value="1">1 star</option>
+                  <option value="2">2 star</option>
+                  <option value="3">3 star</option>
+                  <option value="4">4 star</option>
+                  <option value="5">5 star</option>
+                </select>
+              </div>
+              <div className="max-price">
+                <label htmlFor="max-price">Price Range</label>
+                <br />
+                <select value={maxPrice} onChange={handlePriceChange}>
+                  <option value="">Select price range</option>
+                  <option value="1">$</option>
+                  <option value="2">$$</option>
+                  <option value="3">$$$</option>
+                  <option value="4">$$$$</option>
+                </select>
+              </div>
+            </div>
+            <div className="submit">
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
