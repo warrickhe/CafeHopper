@@ -41,7 +41,7 @@ def check_criteria(criteria, business):
     if 'min_rating' in criteria and criteria['min_rating'] is not None:
         metConditions &= float(business['rating'])>=float(criteria['min_rating'])
     if 'price' in business:
-        if 'max_price' in criteria:
+        if 'max_price' in criteria and criteria['max_price'] != "":
             metConditions &= len(business['price'])<=int(criteria['max_price'])
     else:
         business['price'] = 'unknown'
