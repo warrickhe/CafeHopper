@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datetime/css/react-datetime.css';
 
 import Header from '../components/Header';
+import '../styles/Query.css';
 
 export default function QueryPage() {
   const [location, setLocation] = useState('');
@@ -109,7 +110,7 @@ export default function QueryPage() {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'http://localhost:7272/getcafes');
     // Set request headers if needed
-    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
     // Set up a callback function to handle the response
     xhr.onload = function () {
@@ -134,7 +135,6 @@ export default function QueryPage() {
     var requestBody = JSON.stringify(inputData);
     console.log(requestBody);
     xhr.send(requestBody);
-    
   }
 
   //   {
