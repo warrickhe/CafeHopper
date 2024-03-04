@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
 import Header from '../components/Header';
@@ -11,17 +10,16 @@ import Header from '../components/Header';
 export default function QueryPage() {
   const [location, setLocation] = useState('');
   const [startDate, setStartDate] = useState(null);
-  const [timePerCafe, setTimePerCafe] = useState(0);
-  const [numCafes, setNumCafes] = useState(0);
-  const [maxDistance, setMaxDistance] = useState(0);
+  const [timePerCafe, setTimePerCafe] = useState(null);
+  const [numCafes, setNumCafes] = useState(null);
+  const [maxDistance, setMaxDistance] = useState(null);
 
   // Attributes
   const [isWheelchairAccessible, setIsWheelchairAccessible] = useState(false);
-  const [minReview, setMinReview] = useState(0);
-  const [minRating, setMinRating] = useState('');
+  const [minReview, setMinReview] = useState(null);
+  const [minRating, setMinRating] = useState(null);
   const [maxPrice, setMaxPrice] = useState('');
-  // const [maxDistance, setMaxDistance] = useState(0);
-  // const [numCafes, setNumCafes] = useState(0);
+
   function handleLocationChange(e) {
     setLocation(e.target.value);
   }
@@ -228,7 +226,7 @@ export default function QueryPage() {
             </select>
           </div>
           <Link to="/Results">
-          <button type="submit">Submit</button>
+            <button type="submit">Submit</button>
           </Link>
         </form>
       </div>

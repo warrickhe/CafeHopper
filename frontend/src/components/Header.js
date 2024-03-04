@@ -2,6 +2,9 @@ export default function Header() {
   return (
     <div class="header">
       <a href="" style={{ marginRight: '10px' }}>
+        Home
+      </a>
+      <a href="" style={{ marginRight: '10px' }}>
         FindCafes
       </a>
       <a href="">Saved</a>
