@@ -118,6 +118,9 @@ export default function QueryPage() {
         if (xhr.status === 200) {
           // Request was successful, handle the response
           console.log(xhr.responseText);
+          navigate('/Results', {
+            state: xhr.responseText
+          });
         } else {
           // Handle errors
           console.error('Error:', xhr.status);
@@ -132,7 +135,7 @@ export default function QueryPage() {
     var requestBody = JSON.stringify(inputData);
     console.log(requestBody);
     xhr.send(requestBody);
-    navigate('/Results');
+    
   }
 
   //   {

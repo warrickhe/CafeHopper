@@ -37,7 +37,8 @@ def m_to_mi(distance):
 def check_criteria(criteria, business):
     metConditions = True
     metConditions &= business['review_count']>=int(criteria['min_review_count'])
-    metConditions &= float(business['rating'])>=float(criteria['min_rating'])
+    if 'min_rating' in criteria and criteria['min_rating'] is not None:
+        metConditions &= float(business['rating'])>=float(criteria['min_rating'])
     if 'price' in business:
         if 'max_price' in criteria:
             metConditions &= len(business['price'])<=int(criteria['max_price'])
@@ -89,7 +90,7 @@ def search(address, data, seen_phones, cur_time):
                     'start_time': datetime.fromtimestamp(cur_time).strftime('%m/%d/%Y %H:%M')
                 }
 
-@app.route('/getcafes', methods=['GET','POST'])
+@app.route('/getcafes', methods=['POST'])
 def getCafes():
     print("request received",file=sys.stderr)
     data = request.get_json()
@@ -100,6 +101,9 @@ def getCafes():
     address = data['address']
     time_per_cafe = int(data['time_per_cafe'])
     seen_phones = set()
+    if 'blacklist' in data:
+        for phone in data['blacklist']:
+            seen_phones.add(phone)
     print(datetime.strptime(data['start_time'], '%m/%d/%Y %H:%M'), file=sys.stderr)
     print(getTZOffset(), file=sys.stderr)
     cur_time = int(time.mktime(datetime.strptime(data['start_time'], '%m/%d/%Y %H:%M').timetuple()))
