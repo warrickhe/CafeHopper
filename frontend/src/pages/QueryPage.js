@@ -120,7 +120,8 @@ export default function QueryPage() {
           // Request was successful, handle the response
           console.log(xhr.responseText);
           navigate('/Results', {
-            state: xhr.responseText});
+            state: xhr.responseText,
+          });
         } else {
           // Handle errors
           console.error('Error:', xhr.status);
@@ -201,7 +202,7 @@ export default function QueryPage() {
           <form onSubmit={handleSubmit}>
             <div className="row1">
               <div className="location">
-                <label htmlFor="location">Area to Explore</label>
+                <label htmlFor="location">Area to Explore*</label>
                 <br />
                 <input
                   type="text"
@@ -214,7 +215,7 @@ export default function QueryPage() {
                 />
               </div>
               <div className="date-time">
-                <label htmlFor="start-time">Starting Time</label>
+                <label htmlFor="start-time">Starting Time*</label>
                 <br />
                 <DatePicker
                   selected={startDate}
@@ -232,7 +233,7 @@ export default function QueryPage() {
             </div>
             <div className="row2">
               <div className="num-cafes">
-                <label htmlFor="num-cafes">Number of Cafes to Visit</label>
+                <label htmlFor="num-cafes">Number of Cafes to Visit*</label>
                 <input
                   type="number"
                   id="num-cafes"
@@ -243,7 +244,7 @@ export default function QueryPage() {
                 />
               </div>
               <div className="time-per-cafe">
-                <label htmlFor="time-per-cafe">Time at each cafe (min)</label>
+                <label htmlFor="time-per-cafe">Time at each cafe (min)*</label>
                 <input
                   type="number"
                   id="time-per-cafe"
@@ -254,7 +255,7 @@ export default function QueryPage() {
                 />
               </div>
               <div className="max-distance">
-                <label htmlFor="max-distance">Max travel distance between cafes</label>
+                <label htmlFor="max-distance">Max travel distance between cafes*</label>
                 <input
                   type="number"
                   id="max-distance"

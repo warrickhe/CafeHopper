@@ -3,10 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Map from './Map'; // Import the Map component
 
-
 import Header from '../components/Header';
 import '../styles/Results.css';
-
 
 const dummyData = [
   {
@@ -53,7 +51,6 @@ const dummyData = [
   },
 ];
 
-
 const ResultsPage = () => {
   const [selectedNames, setSelectedNames] = useState([]);
   const { state } = useLocation();
@@ -65,18 +62,30 @@ const ResultsPage = () => {
   console.log(data);
   console.log('here is our input');
   console.log(input);
-  const cafes = data.map((item)=>{
-    return <ul>
-            <li>{item.name}</li>
-              <ul>
-                <li>{item.price}</li>
-                <li>{item.phone}</li>
-                <li>{item.distance} miles away</li>
-                <li>{item.rating} Stars</li>
-                <li>{item.review_count} Review</li>
-              </ul>
-          </ul>;
-});
+  const cafes = data.map((item, index) => {
+    return (
+      <div className="result-div">
+        <h2>{`#${index + 1}: ${item.name}`}</h2>
+        <ul>
+          <li>{item.price}</li>
+          <li>{item.phone}</li>
+          <li>{item.distance} miles away</li>
+          <li>{item.rating} Stars</li>
+          <li>{item.review_count} Review</li>
+        </ul>
+      </div>
+      // <ul>
+      //   <li>{item.name}</li>
+      //   <ul>
+      //     <li>{item.price}</li>
+      //     <li>{item.phone}</li>
+      //     <li>{item.distance} miles away</li>
+      //     <li>{item.rating} Stars</li>
+      //     <li>{item.review_count} Review</li>
+      //   </ul>
+      // </ul>
+    );
+  });
   const handleCheckboxChange = (name) => {
     if (selectedNames.includes(name)) {
       setSelectedNames(selectedNames.filter((item) => item !== name));
@@ -85,10 +94,8 @@ const ResultsPage = () => {
     }
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-
 
     try {
       const response = await axios.post('http://your-backend-url/submit', { selectedNames });
@@ -99,21 +106,23 @@ const ResultsPage = () => {
     }
   };
 
-
   return (
-    <div className="results-container">
+    <div>
       <Header />
-      <div className="results--left"></div>
-      <div className="results--right">
-        <h1>Results Page</h1>
+      <div className="results-container">
+        <div className="results--left"></div>
+        <div className="results--right">
+          <h1>Here is Your Cafe Hopping Route!</h1>
           {cafes}
-        <Link to="/Landing">
-          <button>Restart</button>
-        </Link>
+          <div className="restart-div">
+            <Link to="/Landing">
+              <button className="restart-btn">Restart</button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-
 
 export default ResultsPage;
